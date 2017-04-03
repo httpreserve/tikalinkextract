@@ -1,18 +1,17 @@
 package main
 
 import (
-   "os"
-   "fmt"
+	"fmt"
+	"os"
 )
 
 func findOpenConnections() {
-   var tika string = "http://127.0.0.1:9998/"
-   var resp int8
+	var tika string = "http://127.0.0.1:9998/"
+	var resp int8
 
-   resp = testConnection(tika)
-   if resp == CONN_BAD {
-      fmt.Fprintln(os.Stdout, "INFO: Tika connection not available to connect to. Check localhost:9998.")
-      os.Exit(1)
-   }
+	resp = testConnection(tika)
+	if resp == CONN_BAD {
+		fmt.Fprintln(os.Stdout, "INFO: Tika connection not available to connect to. Check localhost:9998.")
+		os.Exit(1)
+	}
 }
-

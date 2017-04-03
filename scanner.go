@@ -1,4 +1,4 @@
-package main 
+package main
 
 import (
 	"bufio"
@@ -8,9 +8,9 @@ import (
 // strings to look for that indicate a web resource
 var (
 	protoHttps = "https://"
-	protoHttp = "http://"
-	protoWww = "www."				// technically not a protocol
-	protoFtp = "ftp://"
+	protoHttp  = "http://"
+	protoWww   = "www." // technically not a protocol
+	protoFtp   = "ftp://"
 )
 
 //common line endings that shouldn't be in URL
@@ -26,9 +26,9 @@ func cleanLink(link string, www bool) string {
 	link = strings.Replace(link, "\xEF\xBF\xBD", "", 1)
 
 	// replace common invalid line-endings
-	for _, x := range common {	
-		if (x == link[len(link)-1:]) {
-			substring := link[0:len(link)-1]
+	for _, x := range common {
+		if x == link[len(link)-1:] {
+			substring := link[0 : len(link)-1]
 			return cleanLink(substring, false)
 		}
 	}
@@ -39,19 +39,19 @@ func retrieveLink(literal string) string {
 	if strings.Contains(literal, protoHttps) {
 		literal = literal[strings.Index(literal, protoHttps):]
 		return cleanLink(literal, false)
-	} 
+	}
 	if strings.Contains(literal, protoHttp) {
 		literal = literal[strings.Index(literal, protoHttp):]
 		return cleanLink(literal, false)
-	} 
+	}
 	if strings.Contains(literal, protoFtp) {
-		literal = literal[strings.Index(literal, protoFtp):]			
+		literal = literal[strings.Index(literal, protoFtp):]
 		return cleanLink(literal, false)
-	} 
+	}
 	if strings.Contains(literal, protoWww) {
-		literal = literal[strings.Index(literal, protoWww):]		
+		literal = literal[strings.Index(literal, protoWww):]
 		return cleanLink(literal, true)
-	} 
+	}
 	return ""
 }
 
@@ -70,7 +70,7 @@ func httpScanner(fname string, content string) {
 			addedValue := fname + ", " + link
 			seen := false
 			for _, x := range linklist {
-				if (x == addedValue) {
+				if x == addedValue {
 					seen = true
 					break
 				}
