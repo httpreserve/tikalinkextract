@@ -8,7 +8,7 @@ import (
    "path/filepath"
 )
 
-var addprotocol bool = true
+var noprotocol bool
 var file string
 var vers bool
 
@@ -17,7 +17,7 @@ var fthrottle = 8
 func init() {
    flag.StringVar(&file, "file", "false", "File to extract information from.")
    flag.BoolVar(&vers, "version", false, "[Optional] Output version of the tool.")
-   flag.BoolVar(&addprotocol, "noprotocol", true, "[Optional] For www. links (without a protocol, don't prepend http://.")
+   flag.BoolVar(&noprotocol, "noprotocol", false, "[Optional] For www. links (without a protocol, don't prepend http://.")
 }
 
 func processall(file string) {
@@ -52,13 +52,15 @@ func processall(file string) {
             logStringError("%v", err)
             os.Exit(1)
          }
-
-         for _, x := range linklist {
-            fmt.Fprintf(os.Stdout, "%s\n", x)
-         }
       }
    }   
-   
+
+	if len(linklist) > 0 {
+      for _, x := range linklist {
+         fmt.Fprintf(os.Stdout, "%s\n", x)
+      }
+   }
+
    //output that time...
    elapsed := time.Since(start)
    fmt.Fprintf(os.Stderr, "\nTika extract took %s\n", elapsed)
@@ -79,6 +81,7 @@ func main() {
       fmt.Fprintln(os.Stdout, getVersion())
       os.Exit(1)
    }
+
    processall(file)
 }
 

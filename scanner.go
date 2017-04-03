@@ -1,10 +1,8 @@
 package main 
 
 import (
-	"fmt"
 	"bufio"
 	"strings"
-    "crypto/md5"	
 )
 
 // strings to look for that indicate a web resource
@@ -19,7 +17,7 @@ var (
 var common = []string{"�", "\"", "'", ":", ";", ".", "`", ",", "*"}
 
 func cleanLink(link string, www bool) string {
-	if www && addprotocol {
+	if www && !noprotocol {
 		link = protoHttp + link
 	}
 
@@ -70,10 +68,9 @@ func httpScanner(fname string, content string) {
 		link := retrieveLink(scanner.Text())
 		if link != "" {
 			addedValue := fname + ", " + link
-			addedValue = addedValue + ", " + fmt.Sprintf("%x", md5.Sum([]byte(addedValue)))
 			seen := false
 			for _, x := range linklist {
-				if (md5.Sum([]byte(x)) == md5.Sum([]byte(addedValue))) {
+				if (x == addedValue) {
 					seen = true
 					break
 				}
