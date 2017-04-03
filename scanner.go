@@ -7,8 +7,8 @@ import (
 
 // strings to look for that indicate a web resource
 var (
-	protoHttps = "https://"
-	protoHttp  = "http://"
+	protoHTTPS = "https://"
+	protoHTTP  = "http://"
 	protoWww   = "www." // technically not a protocol
 	protoFtp   = "ftp://"
 )
@@ -18,7 +18,7 @@ var common = []string{"�", "\"", "'", ":", ";", ".", "`", ",", "*"}
 
 func cleanLink(link string, www bool) string {
 	if www && !noprotocol {
-		link = protoHttp + link
+		link = protoHTTP + link
 	}
 
 	//utf-8 replacement code character
@@ -36,12 +36,12 @@ func cleanLink(link string, www bool) string {
 }
 
 func retrieveLink(literal string) string {
-	if strings.Contains(literal, protoHttps) {
-		literal = literal[strings.Index(literal, protoHttps):]
+	if strings.Contains(literal, protoHTTPS) {
+		literal = literal[strings.Index(literal, protoHTTPS):]
 		return cleanLink(literal, false)
 	}
-	if strings.Contains(literal, protoHttp) {
-		literal = literal[strings.Index(literal, protoHttp):]
+	if strings.Contains(literal, protoHTTP) {
+		literal = literal[strings.Index(literal, protoHTTP):]
 		return cleanLink(literal, false)
 	}
 	if strings.Contains(literal, protoFtp) {

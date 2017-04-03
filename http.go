@@ -10,21 +10,21 @@ import (
 	"strings"
 )
 
-const PUT = http.MethodPut
-const GET = http.MethodGet
-const POST = http.MethodPost
+const methodPUT = http.MethodPut
+const methodGET = http.MethodGet
+const methodPOST = http.MethodPost
 
-const CONN_OKAY int8 = 0
-const CONN_BAD int8 = 1
+const connOKAY int8 = 0
+const connBAD int8 = 1
 
-const ACCEPT_MIME_CSV = "text/csv"
-const ACCEPT_MIME_JSON = "application/json"
-const ACCEPT_MIME_XMP = "application/rdf+xml"
+const acceptMIME = "text/csv"
+const acceptJSON = "application/json"
+const acceptXMP = "application/rdf+xml"
 
 func testConnection(request string) int8 {
 
-	conn := CONN_OKAY
-	stream, err := http.NewRequest(GET, request, nil)
+	conn := connOKAY
+	stream, err := http.NewRequest(methodGET, request, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "ERROR: error creating request,", err)
 		os.Exit(1)
@@ -33,7 +33,7 @@ func testConnection(request string) int8 {
 	client := &http.Client{}
 	_, err = client.Do(stream)
 	if err != nil {
-		conn = CONN_BAD
+		conn = connBAD
 	}
 
 	return conn
@@ -55,9 +55,9 @@ func handleConnection(stream *http.Request) string {
 		os.Exit(1)
 	}
 
-	data_string := string(data)
-	trimmed_response := strings.TrimSpace(data_string) //byte [] becomes string
-	return trimmed_response
+	dataString := string(data)
+	trimmedResponse := strings.TrimSpace(dataString) //byte [] becomes string
+	return trimmedResponse
 }
 
 func makeMultipartConnection(VERB string, request string, fp *os.File, fname string, accepttype string) string {

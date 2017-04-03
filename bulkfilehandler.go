@@ -55,20 +55,20 @@ func getFileContent(fi filedata, ch chan contenterror) {
 		return
 	}
 
-	_, fl_recursive_keys_values, err := getTikaRecursive(fi.fname, fp, ACCEPT_MIME_JSON)
+	_, flRecursiveKeysValues, err := getTikaRecursive(fi.fname, fp, acceptJSON)
 	if err != nil {
 		ce.err = err
 		ch <- ce
 		return
 	}
 
-	if val, ok := fl_recursive_keys_values[TIKA_PLAIN_TEXT]; ok {
+	if val, ok := flRecursiveKeysValues[tikaPlainText]; ok {
 		ce.content = val.(string)
 		ch <- ce
 		return
-	} else {
-		ce.err = fmt.Errorf("No plain text data to analyse.")
-		ch <- ce
-		return
 	}
+
+	ce.err = fmt.Errorf("No plain text data to analyse.")
+	ch <- ce
+	return
 }

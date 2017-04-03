@@ -14,13 +14,13 @@ type filedata struct {
 func readFile(path string, fi os.FileInfo, _ error) error {
 	switch mode := fi.Mode(); {
 	case mode.IsRegular():
-		allfiles = ExtendFileDataSlice(allfiles, filedata{path, fi.Name()})
+		allfiles = extendFileDataSlice(allfiles, filedata{path, fi.Name()})
 	}
 	return nil
 }
 
 //ExtendEntitySlice extends a slice of type EntityData
-func ExtendFileDataSlice(slice []filedata, fd filedata) []filedata {
+func extendFileDataSlice(slice []filedata, fd filedata) []filedata {
 	n := len(slice)
 	if n == cap(slice) {
 		// Slice is full; must grow.kb
