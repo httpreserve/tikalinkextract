@@ -6,19 +6,34 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+	"sync"
 )
 
-var noprotocol bool
-var file string
-var vers bool
-
-var fthrottle = 8
+var (
+	noprotocol bool
+	file string
+	vers bool
+	fileThrottle = 8
+	totalFiles int
+)
 
 func init() {
 	flag.StringVar(&file, "file", "false", "File to extract information from.")
 	flag.BoolVar(&vers, "version", false, "[Optional] Output version of the tool.")
 	flag.BoolVar(&noprotocol, "noprotocol", false, "[Optional] For www. links (without a protocol, don't prepend http://.")
 }
+
+func outputList(linkpool []string) {
+	defer wg.Done()
+	if len(linkpool) > 0 {
+		for _, x := range linkpool {
+			fmt.Fprintf(os.Stdout, "%s\n", x)
+		}
+		linkpool = linkpool[:0]
+	}
+}
+
+var wg sync.WaitGroup
 
 func processall(file string) {
 	//check the services are up and running
@@ -42,8 +57,10 @@ func processall(file string) {
 		os.Exit(1)
 	}
 
-	for x := 0; x < len(allfiles); x += fthrottle {
-		remain := min(x+fthrottle, len(allfiles))
+	totalFiles = len(allfiles)
+
+	for x := 0; x < len(allfiles); x += fileThrottle {
+		remain := min(x+fileThrottle, len(allfiles))
 		filepool := allfiles[x:remain]
 		b := true
 		for b {
@@ -53,12 +70,17 @@ func processall(file string) {
 				os.Exit(1)
 			}
 		}
-	}
+		linkpool := make([]string, len(linklist))
+		copy(linkpool, linklist)
+		linklist = linklist[:0]
 
-	if len(linklist) > 0 {
-		for _, x := range linklist {
-			fmt.Fprintf(os.Stdout, "%s\n", x)
-		}
+		// process output in background while we handle other filed
+		wg.Add(1)
+		go outputList(linkpool)
+
+		//release waitgroup, exit...i believe this will prevent race 
+		//conditions when working between the two lists in this loop.
+		wg.Wait()
 	}
 
 	//output that time...

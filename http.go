@@ -65,7 +65,7 @@ func makeMultipartConnection(VERB string, request string, fp *os.File, fname str
 	//https://gist.github.com/mattetti/5914158/f4d1393d83ebedc682a3c8e7bdc6b49670083b84
 	fileContents, err := ioutil.ReadAll(fp)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintln(os.Stderr, err)
 	}
 
 	body := new(bytes.Buffer)
@@ -74,13 +74,13 @@ func makeMultipartConnection(VERB string, request string, fp *os.File, fname str
 
 	part, err := writer.CreateFormFile("file", fname)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintln(os.Stderr, err)
 	}
 	part.Write(fileContents)
 
 	err = writer.Close() //writer must be closed to avoid: [UNEXPECTED EOF]
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintln(os.Stderr, err)
 	}
 
 	stream, err := http.NewRequest(VERB, request, body)

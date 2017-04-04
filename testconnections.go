@@ -11,7 +11,7 @@ func findOpenConnections() {
 
 	resp = testConnection(tika)
 	if resp == connBAD {
-		fmt.Fprintln(os.Stdout, "INFO: Tika connection not available to connect to. Check localhost:9998.")
+		fmt.Fprintln(os.Stderr, "INFO: Tika connection not available to connect to. Check localhost:9998.")
 		os.Exit(1)
 	}
 }
