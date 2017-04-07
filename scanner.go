@@ -12,7 +12,12 @@ func httpScanner(fname string, content string) {
 	extracted, errs := linkscanner.HTTPScanner(content)
 	if len(extracted) > 0 {
 		for _, link := range extracted {
-			addedValue := fname + ", " + link
+			var addedValue string
+			if quoteCells {
+				addedValue = "\"" + fname + "\", \"" + link + "\""
+			} else {
+				addedValue = fname + ", " + link
+			}
 			linklist = append(linklist, addedValue)
 		}
 	}

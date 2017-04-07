@@ -5,22 +5,24 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"time"
 	"sync"
+	"time"
 )
 
 var (
-	noprotocol bool
-	file string
-	vers bool
+	noprotocol   bool
+	file         string
+	vers         bool
 	fileThrottle = 8
-	totalFiles int
+	totalFiles   int
+	quoteCells   = false
 )
 
 func init() {
 	flag.StringVar(&file, "file", "false", "File to extract information from.")
 	flag.BoolVar(&vers, "version", false, "[Optional] Output version of the tool.")
 	flag.BoolVar(&noprotocol, "noprotocol", false, "[Optional] For www. links (without a protocol, don't prepend http://.")
+	flag.BoolVar(&quoteCells, "quote", false, "[Optional] Some URLS may contain commas, quote cells for your CSV parser.")
 }
 
 func outputList(linkpool []string) {
@@ -78,7 +80,7 @@ func processall(file string) {
 		wg.Add(1)
 		go outputList(linkpool)
 
-		//release waitgroup, exit...i believe this will prevent race 
+		//release waitgroup, exit...i believe this will prevent race
 		//conditions when working between the two lists in this loop.
 		wg.Wait()
 	}
@@ -94,8 +96,10 @@ func main() {
 	if flag.NFlag() <= 0 { // can access args w/ len(os.Args[1:]) too
 		fmt.Fprintln(os.Stderr, "Usage:  links [-file ...]")
 		fmt.Fprintln(os.Stderr, "Usage:        [Optional -noprotocol]")
+		fmt.Fprintln(os.Stderr, "Usage:        [Optional -quote]")
 		fmt.Fprintln(os.Stderr, "              [Optional -version]")
 		fmt.Fprintln(os.Stderr, "Output: [CSV] {filename}, {link}")
+		fmt.Fprintln(os.Stderr, "Output: [CSV] \"{filename}\", \"{link}\"")
 		flag.Usage()
 		os.Exit(0)
 	}
