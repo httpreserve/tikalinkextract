@@ -7,3 +7,7 @@
 # tika-httpreserve
 
 Tika client for httpreserve
+
+## Known Issues
+
+* HTTP links that are formatted in such a way to be split across lines, thus include a newline \n character. 
