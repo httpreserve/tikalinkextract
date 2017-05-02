@@ -11,3 +11,4 @@ Tika client for httpreserve
 ## Known Issues
 
 * HTTP links that are formatted in such a way to be split across lines, thus include a newline \n character. 
+* Limited to files TIKA recognizes, doesn't retry with other service (yet) 
