@@ -13,6 +13,10 @@ Tika client for httpreserve
 * HTTP links that are formatted in such a way to be split across lines, thus include a newline \n character. 
 * Limited to files TIKA recognizes, doesn't retry with other service (yet) (WordPerfect due in Tika 1.15)
 
+## Resources that might help 
+
+* [REGEX Guru: Detecting URLS in text](http://www.regexguru.com/2008/11/detecting-urls-in-a-block-of-text/)
+
 ## License
 
 Tika is licensed as follows: http://www.apache.org/licenses/
