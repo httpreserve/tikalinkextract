@@ -1,5 +1,5 @@
 @echo off
 
-stop java -jar "tools/tika-server-1.14.jar"
+stop java -jar "tools/tika-server-1.16.jar"
 
 exit
