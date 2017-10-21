@@ -1,7 +1,9 @@
 package main
 
-var version = "tika-httpreserve-0.0.1-alpha"
+import "github.com/httpreserve/linkscanner"
+
+var version = "tikalinkextract-0.0.2"
 
 func getVersion() string {
-	return version
+	return version + "\n" + linkscanner.GetVersion()
 }

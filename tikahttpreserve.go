@@ -16,6 +16,7 @@ var (
 	fileThrottle = 8
 	totalFiles   int
 	quoteCells   = false
+	seedList     = false
 )
 
 func init() {
@@ -23,6 +24,7 @@ func init() {
 	flag.BoolVar(&vers, "version", false, "[Optional] Output version of the tool.")
 	flag.BoolVar(&noprotocol, "noprotocol", false, "[Optional] For www. links (without a protocol, don't prepend http://.")
 	flag.BoolVar(&quoteCells, "quote", false, "[Optional] Some URLS may contain commas, quote cells for your CSV parser.")
+	flag.BoolVar(&seedList, "seeds", false, "[Optional] Simply output a unique list of seeds for a web archiving tool like wget.")
 }
 
 func outputList(linkpool []string) {
