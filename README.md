@@ -12,6 +12,17 @@ Tika client for httpreserve
 
 [![asciicast](https://asciinema.org/a/143271.png)](https://asciinema.org/a/143271)
 
+## Use with Wget
+
+**Extract the links from your files using seeds option**
+
+    ./tikalinkextract -seeds -file archives-nz-demo/ > transferlinks.txt
+
+**Use the seeds to generate a warc file**
+
+    wget --page-requisites --span-hosts --convert-links  --execute robots=off --adjust-extension --no-directories --directory-prefix=output --warc-cdx --warc-file=accession.warc --wait=0.1 --user-agent=httpreserve-wget/0.0.1 -i transferlinks.txt 
+
+
 ### Known Issues
 
 * HTTP links that are formatted in such a way to be split across lines, thus include a newline \n character. 
