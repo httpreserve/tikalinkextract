@@ -36,7 +36,6 @@ func httpScanner(fname string, content string) {
 			}
 		}
 	}
-
 	if len(errs) > 0 {
 		for _, e := range errs {
 			fmt.Fprintf(os.Stderr, "%s", e.Error())

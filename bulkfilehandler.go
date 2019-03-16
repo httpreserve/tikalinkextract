@@ -12,7 +12,6 @@ type contenterror struct {
 }
 
 func extractAndAnalyse(filepool []filedata) (bool, error) {
-
 	//make channel run goroutine...
 	ch := make(chan contenterror)
 	for _, fi := range filepool {
@@ -26,7 +25,6 @@ func extractAndAnalyse(filepool []filedata) (bool, error) {
 			httpScanner(ce.fname, ce.content)
 		}
 	}
-
 	return false, nil
 }
 
@@ -42,10 +40,8 @@ func getFileContent(fi filedata, ch chan contenterror) {
 	//create empty struct to return...
 	var ce contenterror
 	ce.fname = fi.fname
-
 	//what are we doing..?
 	logFileMessage("INFO: '%s' being processed.", fi.fname)
-
 	//process...
 	fp, err := openFile(fi.fpath)
 	defer fp.Close()
@@ -54,20 +50,17 @@ func getFileContent(fi filedata, ch chan contenterror) {
 		ch <- ce
 		return
 	}
-
 	_, flRecursiveKeysValues, err := getTikaRecursive(fi.fname, fp, acceptJSON)
 	if err != nil {
 		ce.err = err
 		ch <- ce
 		return
 	}
-
 	if val, ok := flRecursiveKeysValues[tikaPlainText]; ok {
 		ce.content = val.(string)
 		ch <- ce
 		return
 	}
-
 	ce.err = fmt.Errorf("No plain text data to analyse.")
 	ch <- ce
 	return

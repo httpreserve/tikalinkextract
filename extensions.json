@@ -1,0 +1,10 @@
+{
+	"title": "Extensions data file for tikalinkextract",
+	"version": "0.0.1",
+	"Extensions": [
+		"pw://",
+		"info:ark/",
+		"info:pronom/",
+		"info:hdl/"
+	]
+}
