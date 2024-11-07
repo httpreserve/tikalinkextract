@@ -1,10 +1,10 @@
 <div>
 <p align="center">
-<img id="logo" src="https://github.com/httpreserve/httpreserve/raw/master/src/images/httpreserve-logo.png" alt="httpreserve"/>
+<img height="300px" width="300px" id="logo" src="https://github.com/httpreserve/httpreserve/raw/main/src/images/httpreserve-logo.png" alt="httpreserve"/>
 </p>
 </div>
 
-# tika-httpreserve
+# tikalinkextract 
 
 Tika client for httpreserve
 
