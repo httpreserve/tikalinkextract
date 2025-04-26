@@ -16,4 +16,4 @@ repos:
   rev: v2.3.0
   hooks:
     - id: codespell
-      args: [-I, .codespellignore]
+      args: [-I, .codespellignore, --skip, "test-files/*"]
