@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/httpreserve/linkscanner"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sync"
 	"time"
+
+	"github.com/httpreserve/linkscanner"
 )
 
 type protocolExtensions struct {
@@ -58,7 +59,7 @@ func processall(file string) {
 		logStringError("%v", err)
 		os.Exit(1)
 	}
-	//time how long it takes to prcess files and extract entities
+	//time how long it takes to prpcess files and extract entities
 	start := time.Now()
 	//read each file into each server and collect results
 	if len(allfiles) <= 0 {
