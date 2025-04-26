@@ -1,5 +1,9 @@
 @echo off
 
-stop java -jar "tools/tika-server-1.20.jar"
+:: Installation directory
+SET instDir="%~dp0\"
 
-exit
+:: Location of Tika server jar
+SET tikaServerJar=%instDir%\tools\tika-server-1.16.jar
+
+stop java -jar  %tikaServerJar%

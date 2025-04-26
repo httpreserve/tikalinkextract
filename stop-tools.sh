@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-fuser -l 9998/tcp
+fuser -k 9998/tcp
