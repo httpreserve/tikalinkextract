@@ -1,0 +1,4 @@
+github.com/httpreserve/linkscanner v0.0.0-20241107193539-47a46464fe94 h1:6DYckq0dPi0H9rtuttNTNLAzbu6R03qd59erXTx4uzg=
+github.com/httpreserve/linkscanner v0.0.0-20241107193539-47a46464fe94/go.mod h1:0nuYjCCv8UxBchj+Zr66LS5GsWByOyjIISifjhM9mMM=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
