@@ -1,1 +1,6 @@
 tikalinkextract
+*.cdx
+*.gz
+*.warc
+transferlinks.txt
+output/*
